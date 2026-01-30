@@ -1,73 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mayra Barbosa | ISC</title>
 <style id="dynamic-style">
-/* Esperando a que el sistema inicialice... */
-body { background: #222; color: #fff; font-family: monospace; }
+body { background: #222; color: #fff; font-family: monospace; padding: 30px; }
+pre { color: #ce9178; background: #252526; padding: 15px; border-radius: 5px; border: 1px solid #333; overflow: auto; max-height: 200px; }
+#resume-container { 
+  opacity: 0; 
+  transition: opacity 1.5s ease-in-out; 
+  background: white; color: #333; padding: 40px; margin-top: 20px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
 </style>
 </head>
 <body>
+
 <pre id="code-area"></pre>
 <div id="resume-container"></div>
 
 <script>
-const styleText = `/* * ¡Hola! Soy Mayra Barbosa, Ingeniera en Sistemas. [cite: 3, 5]
- * Vamos a darle un poco de estilo a este currículum...
- */
-
-body {
-  background-color: #1a1a1a;
-  color: #d4d4d4;
-  font-family: 'Fira Code', 'Courier New', monospace;
-  font-size: 14px;
-  line-height: 1.5;
-  padding: 30px;
-}
-
-pre { 
-  color: #ce9178; 
-  background: #252526;
-  padding: 15px;
-  border-radius: 5px;
-  border: 1px solid #333;
-}
-
-/* Ahora, hagamos que el contenido real aparezca... */
-
-#resume-container {
-  background: white;
-  color: #333;
-  padding: 40px;
-  margin-top: 20px;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}`;
+const styleText = `body { background-color: #1a1a1a; color: #d4d4d4; font-family: 'Fira Code', monospace; font-size: 14px; line-height: 1.5; padding: 30px; }
+pre { color: #ce9178; background: #252526; padding: 15px; border-radius: 5px; border: 1px solid #333; }
+#resume-container { background: white; color: #333; padding: 40px; margin-top: 20px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }`;
 
 const resumeContent = `
 <h1>MAYRA ELIZABETH BARBOSA SALAS</h1>
-<p><b>Ingeniera en Sistemas Computacionales</b> | Guadalajara, Jal. [cite: 3, 36]</p>
-
+<p><b>Ingeniera en Sistemas Computacionales</b> | Guadalajara, Jal.</p>
 <h3>EXPERIENCIA PROFESIONAL</h3>
 <hr>
-<p><b>Jefa de Soporte Técnico - UDG (2018-2020)</b> [cite: 10, 11]
-<br>• Coordiné un equipo de 20 personas y gestioné 50 equipos. [cite: 12]
-<br>• Administré servidores Tomcat, IIS y videovigilancia. [cite: 15]</p>
-
-<p><b>Analista de Proyectos - HEMAC (2021-2023)</b> [cite: 26, 27]
-<br>• Proyecto Jalisco 2.0: Análisis de redes en +600 sitios. [cite: 28]
-<br>• Creación de dashboards en Power BI. [cite: 29]</p>
-
-<p><b>Soporte Técnico - HP (2020-2021)</b> [cite: 16, 17]
-<br>• Resolución de incidencias de hardware y software. [cite: 18]</p>
-
+<p><b>Jefa de Soporte Técnico - UDG (2018-2020)</b><br>• Coordiné un equipo de 20 personas y gestioné 50 equipos.<br>• Administré servidores Tomcat, IIS y videovigilancia.</p>
+<p><b>Analista de Proyectos - HEMAC (2021-2023)</b><br>• Proyecto Jalisco 2.0: Análisis de redes en +600 sitios.<br>• Creación de dashboards en Power BI.</p>
+<p><b>Soporte Técnico - HP (2020-2021)</b><br>• Resolución de incidencias de hardware y software.</p>
 <h3>CERTIFICACIONES</h3>
 <hr>
 <ul>
-  <li>Grandstream Certified Specialist (Networking & UCM) [cite: 39]</li>
-  <li>CCNA Switching & Routing [cite: 40]</li>
+<li>Grandstream Certified Specialist (Networking & UCM)</li>
+<li>CCNA Switching & Routing</li>
 </ul>`;
 
 let styleCursor = 0;
@@ -82,7 +51,7 @@ function writeStyle() {
     window.scrollTo(0, document.body.scrollHeight);
     setTimeout(writeStyle, 15);
   } else {
-    writeResume();
+    setTimeout(writeResume, 300); // espera un poco antes de mostrar CV
   }
 }
 
@@ -91,10 +60,15 @@ function writeResume() {
     document.getElementById('resume-container').innerHTML = resumeContent.substring(0, resumeCursor);
     resumeCursor++;
     setTimeout(writeResume, 5);
+  } else {
+    // Fade-in final
+    document.getElementById('resume-container').style.opacity = 1;
+    document.getElementById('resume-container').scrollIntoView({behavior: "smooth"});
   }
 }
 
 writeStyle();
 </script>
+
 </body>
 </html>
