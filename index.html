@@ -4,70 +4,177 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mayra Barbosa | ISC</title>
-<style id="dynamic-style">
-body { background: #222; color: #fff; font-family: monospace; padding: 30px; }
-pre { color: #ce9178; background: #252526; padding: 15px; border-radius: 5px; border: 1px solid #333; overflow: auto; max-height: 200px; }
-#resume-container { 
-  opacity: 0; 
-  transition: opacity 1.5s ease-in-out; 
-  background: white; color: #333; padding: 40px; margin-top: 20px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+<style>
+body {
+  margin: 0;
+  font-family: 'Fira Code', monospace;
+  background: #1a1a1a;
+  color: #d4d4d4;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Terminal estilo stmrl.net */
+#code-area {
+  background: #252526;
+  color: #ce9178;
+  padding: 20px;
+  white-space: pre-wrap;
+  overflow-y: auto;
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.4;
+  border-bottom: 2px solid #333;
+  position: relative;
+}
+
+#cursor {
+  display: inline-block;
+  width: 8px;
+  background: #d4d4d4;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { background: #d4d4d4; }
+  25%, 75% { background: transparent; }
+}
+
+/* CV container */
+#resume-container {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  background: #fff;
+  color: #333;
+  padding: 40px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  max-width: 800px;
+}
+
+h1,h2,h3,p,li { margin: 8px 0; }
+ul { padding-left: 20px; }
+
+#download-btn {
+  display: none;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  background: #ce9178;
+  color: #1a1a1a;
+  cursor: pointer;
 }
 </style>
 </head>
 <body>
 
-<pre id="code-area"></pre>
+<div id="code-area"><span id="cursor"></span></div>
 <div id="resume-container"></div>
+<button id="download-btn">Descargar CV en PDF</button>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-const styleText = `body { background-color: #1a1a1a; color: #d4d4d4; font-family: 'Fira Code', monospace; font-size: 14px; line-height: 1.5; padding: 30px; }
-pre { color: #ce9178; background: #252526; padding: 15px; border-radius: 5px; border: 1px solid #333; }
-#resume-container { background: white; color: #333; padding: 40px; margin-top: 20px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }`;
+const codeText = `/* Iniciando CV de Mayra Barbosa */
+body { background-color: #1a1a1a; color: #d4d4d4; font-family: 'Fira Code', monospace; }
+#resume-container { background: #fff; color: #333; padding: 40px; margin:20px auto; border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,0.5); max-width:800px; opacity:0; }`;
 
-const resumeContent = `
-<h1>MAYRA ELIZABETH BARBOSA SALAS</h1>
-<p><b>Ingeniera en Sistemas Computacionales</b> | Guadalajara, Jal.</p>
-<h3>EXPERIENCIA PROFESIONAL</h3>
+const resumeSections = [
+`<h1>MAYRA ELIZABETH BARBOSA SALAS</h1>
+<p><b>Ingeniera en Sistemas Computacionales</b> | Guadalajara, Jal.</p>`,
+`<h2>EXPERIENCIA PROFESIONAL</h2>
 <hr>
-<p><b>Jefa de Soporte Técnico - UDG (2018-2020)</b><br>• Coordiné un equipo de 20 personas y gestioné 50 equipos.<br>• Administré servidores Tomcat, IIS y videovigilancia.</p>
-<p><b>Analista de Proyectos - HEMAC (2021-2023)</b><br>• Proyecto Jalisco 2.0: Análisis de redes en +600 sitios.<br>• Creación de dashboards en Power BI.</p>
-<p><b>Soporte Técnico - HP (2020-2021)</b><br>• Resolución de incidencias de hardware y software.</p>
-<h3>CERTIFICACIONES</h3>
-<hr>
+<p><b>Jefa de Soporte Técnico - UDG (2018-2020)</b><br>
+• Coordiné un equipo de 20 personas y gestioné 50 equipos.<br>
+• Administré servidores Tomcat, IIS y videovigilancia.<br>
+• Desarrollo de páginas web y modificaciones internas.<br>
+• Gestión de red VPN y respaldos de información.</p>`,
+`<p><b>Soporte Técnico - HP (2020-2021)</b><br>
+• Resolución de incidencias de hardware y software.<br>
+• Optimización de procesos de soporte y documentación.</p>`,
+`<p><b>Analista de Proyectos - HEMAC (2021-2023)</b><br>
+• Proyecto Jalisco 2.0: Análisis y documentación de red en +600 sitios.<br>
+• Creación de dashboards en Power BI.<br>
+• Coordinación de equipos técnicos y reportes de rendimiento.</p>`,
+`<h2>EDUCACIÓN</h2><hr>
+<p><b>Ingeniería en Sistemas Computacionales</b> - Universidad de Guadalajara (2013-2018)</p>`,
+`<h2>CERTIFICACIONES</h2><hr>
 <ul>
 <li>Grandstream Certified Specialist (Networking & UCM)</li>
 <li>CCNA Switching & Routing</li>
-</ul>`;
+<li>Power BI Certified</li>
+</ul>`,
+`<h2>HABILIDADES</h2><hr>
+<ul>
+<li>Redes y telecomunicaciones</li>
+<li>Desarrollo web y aplicaciones</li>
+<li>Administración de servidores</li>
+<li>Gestión de equipos y soporte técnico</li>
+<li>Power BI / Análisis de datos</li>
+</ul>`,
+`<h2>IDIOMAS</h2><hr>
+<ul>
+<li>Español - Nativo</li>
+<li>Inglés - Intermedio</li>
+</ul>`
+];
 
-let styleCursor = 0;
-let resumeCursor = 0;
+let codeCursor = 0;
+const codeArea = document.getElementById('code-area');
+const cursor = document.getElementById('cursor');
+const resume = document.getElementById('resume-container');
 
-function writeStyle() {
-  if (styleCursor < styleText.length) {
-    const char = styleText.charAt(styleCursor);
-    document.getElementById('code-area').textContent += char;
-    document.getElementById('dynamic-style').textContent += char;
-    styleCursor++;
-    window.scrollTo(0, document.body.scrollHeight);
-    setTimeout(writeStyle, 15);
+function typeCode() {
+  if (codeCursor < codeText.length) {
+    codeArea.innerHTML = codeText.substring(0, codeCursor) + '<span id="cursor"></span>';
+    codeCursor++;
+    codeArea.scrollTop = codeArea.scrollHeight;
+    setTimeout(typeCode, 15);
   } else {
-    setTimeout(writeResume, 300); // espera un poco antes de mostrar CV
+    typeResume(0);
   }
 }
 
-function writeResume() {
-  if (resumeCursor < resumeContent.length) {
-    document.getElementById('resume-container').innerHTML = resumeContent.substring(0, resumeCursor);
-    resumeCursor++;
-    setTimeout(writeResume, 5);
+function typeResume(index) {
+  if (index < resumeSections.length) {
+    let section = resumeSections[index];
+    let charIndex = 0;
+    function writeChar() {
+      if (charIndex < section.length) {
+        resume.innerHTML = resume.innerHTML + section[charIndex];
+        charIndex++;
+        resume.scrollTop = resume.scrollHeight;
+        setTimeout(writeChar, 3);
+      } else {
+        // después de escribir sección completa, pasamos a la siguiente
+        setTimeout(() => typeResume(index + 1), 200);
+      }
+    }
+    writeChar();
   } else {
-    // Fade-in final
-    document.getElementById('resume-container').style.opacity = 1;
-    document.getElementById('resume-container').scrollIntoView({behavior: "smooth"});
+    resume.style.opacity = 1;
+    document.getElementById('download-btn').style.display = 'block';
   }
 }
 
-writeStyle();
+typeCode();
+
+// Descargar PDF
+document.getElementById('download-btn').addEventListener('click', () => {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF('p','pt','a4');
+  doc.html(resume, {
+    callback: function(doc) {
+      doc.save('CV_Mayra_Barbosa.pdf');
+    },
+    x: 20,
+    y: 20,
+    width: 555
+  });
+});
 </script>
 
 </body>
