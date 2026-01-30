@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mayra Barbosa | CV</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            line-height: 1.6;
+            padding: 5% 10%;
+        }
+        .code-window {
+            background: #252526;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 20px;
+            border: 1px solid #333;
+        }
+        .keyword { color: #569cd6; } /* Azul */
+        .string { color: #ce9178; }  /* Naranja */
+        .comment { color: #6a9955; font-style: italic; } /* Verde */
+        .function { color: #dcdcaa; } /* Amarillo */
+        .variable { color: #9cdcfe; } /* Celeste */
+        
+        h1 { color: #4ec9b0; border-bottom: 1px solid #333; }
+        .cursor { animation: blink 1s infinite; border-left: 8px solid #569cd6; margin-left: 5px; }
+        @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div class="code-window">
+        <span class="comment">// Currículum Vitae - Mayra Elizabeth Barbosa Salas [cite: 1, 3]</span><br>
+        <span class="keyword">class</span> <span class="function">IngenieraEnSistemas</span> {<br>
+        &nbsp;&nbsp;<span class="variable">contacto</span> = {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;ubicacion: <span class="string">"Guadalajara, Jalisco"</span>, <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;email: <span class="string">"mayra.barbosa1988@gmail.com"</span>, <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;tel: <span class="string">"33 1558 0638"</span> <br>
+        &nbsp;&nbsp;};<br><br>
+
+        &nbsp;&nbsp;<span class="function">experiencia_laboral</span>() {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Soporte N1 y diagnóstico [cite: 23]</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> [<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"INTTELEC Networks (2024)"</span>, [cite: 22]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"HEMAC - Proyecto Jalisco 2.0 (+600 sitios)"</span>, [cite: 27, 28]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"HP - Soporte Técnico"</span>, [cite: 17]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"UDG - Jefa de Soporte (Coord. 20 personas)"</span> [cite: 10, 11, 12]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;];<br>
+        &nbsp;&nbsp;}<br><br>
+
+        &nbsp;&nbsp;<span class="function">skills_tecnicas</span>() {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span> skills = [<span class="string">"Grandstream UCM"</span>, <span class="string">"CCNA"</span>, <span class="string">"Power BI"</span>, <span class="string">"Servidores"</span>]; [cite: 39, 40, 47, 51]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> skills;<br>
+        &nbsp;&nbsp;}<br>
+        }<span class="cursor"></span>
+    </div>
+</body>
+</html>
